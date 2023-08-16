@@ -37,7 +37,7 @@ jobs:
           # Deploy the package to Orchestrator
           $args = @(
             "package deploy",
-            "${{ github.workspace }}/MyPackage.nupkg",
+            "${{ github.workspace }}/firstbot.nupkg",
             "--url $ORCHESTRATOR_URL",
             "--tenant $ORCHESTRATOR_TENANT",
             "--accountForApp $ORCHESTRATOR_APP_ID",
