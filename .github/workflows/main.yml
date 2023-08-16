@@ -1,4 +1,4 @@
-name: 'UiPath Deploy'
+name: 'intergatecicd'
 description: 'Deploys .nupkg packages in the Github workspace directory to UiPath Orchestrator'
 
 inputs:
