@@ -1,32 +1,16 @@
 name: 'intergatecicd'
 description: 'Deploys .nupkg packages in the Github workspace directory to UiPath Orchestrator'
 
-inputs:
-  orchestratorUrl: 
-    description: 'Orchestrator instance URL'
-    required: true
-  orchestratorTenant:
-    description: 'Tenant on the Orchestrator instance'
-    required: true
-  orchestratorFolder:
-    description: 'Folder path in modern folder setup'
-    required: true
-  orchestratorApplicationId:
-    description: 'Account for authenticating to Orchestrator'
-    required: true
-  orchestratorApplicationSecret:
-    description: 'Password for the Orchestrator account'
-    required: true
-  orchestratorApplicationScope:
-    description: 'Access scope for external application'
-    required: true
-  orchestratorLogicalName:
-    description: 'Logical name for Orchestrator organization'
-    required: true
+env:
+  ORCHESTRATOR_URL: ${{ secrets.ORCHESTRATOR_URL }}
+  ORCHESTRATOR_TENANT: ${{ secrets.ORCHESTRATOR_TENANT }}
+  ORCHESTRATOR_FOLDER: ${{ secrets.ORCHESTRATOR_FOLDER }}
+  ORCHESTRATOR_APP_ID: ${{ secrets.ORCHESTRATOR_APP_ID }}
+  ORCHESTRATOR_APP_SECRET: ${{ secrets.ORCHESTRATOR_APP_SECRET }}
 
 runs:
   using: "composite"
   steps:    
     - name: Deploy
       shell: powershell
-      run: uipcli package deploy "${{ github.workspace }}" "${{ inputs.orchestratorUrl }}" ${{ inputs.orchestratorTenant }} --accountForApp "${{ inputs.orchestratorLogicalName }}" --applicationId "${{ inputs.orchestratorApplicationId }}" --applicationSecret "${{ inputs.orchestratorApplicationSecret }}" --applicationScope "${{ inputs.orchestratorApplicationScope }}" --organizationUnit "${{ inputs.orchestratorFolder }}"
+      run: uipcli package deploy "${{ github.workspace }}" "$ORCHESTRATOR_URL" "$ORCHESTRATOR_TENANT" --accountForApp "$ORCHESTRATOR_APP_ID" --applicationSecret "$ORCHESTRATOR_APP_SECRET" --organizationUnit "$ORCHESTRATOR_FOLDER"
