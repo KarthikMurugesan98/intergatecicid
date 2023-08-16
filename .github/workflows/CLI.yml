@@ -1,0 +1,10 @@
+- name: Install UiPath CLI
+  run: |
+    $cliUrl = "https://www.myget.org/F/uipath-dev/api/v2/package/UiPath.CLI/1.0.7985.19721"
+    $cliZipPath = "$env:USERPROFILE\Downloads\uipathcli.zip"
+    $cliFolderPath = "$env:USERPROFILE\Downloads\uipathcli"
+
+    Invoke-WebRequest -Uri $cliUrl -OutFile $cliZipPath
+    Expand-Archive -Path $cliZipPath -DestinationPath $cliFolderPath
+    $cliExePath = (Get-ChildItem -Path $cliFolderPath -Filter "uipcli.exe" -Recurse).FullName
+    echo "UIPath CLI installed at $cliExePath"
